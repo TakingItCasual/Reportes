@@ -24,7 +24,7 @@ def pause():
 def confirm():
     """This Function asks user for confirmation"""
     confirmation = input("Do you wish to confirm? Y-N: ")
-    if confirmation[0].lower() == "y":
+    if confirmation.lower().startswith("y"):
         return True
     print("Confirmation Failed!")
     return False
