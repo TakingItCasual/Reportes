@@ -2,7 +2,7 @@
 
 import pyperclip as pyclip
 import pickle as pkl
-from IEM import confirm, UEIP
+from IEM import confirm, int_input
 
 
 # File Data
@@ -31,12 +31,9 @@ def save_report(report):
 
 
 def edit_report():
-    """This Function will create a new report """
-    i = int(input("How many report items? "))
-    report_items = []
-    while i > 0:
-        report_items.append(input("Report Item Name: "))
-        i -= 1
+    """This Function will create a new report"""
+    i = int_input("How many report items? ")
+    report_items = [input("Report Item Name: ") for _ in range(i)]
     for report in report_items:
         print(report)
     if confirm():
@@ -45,18 +42,18 @@ def edit_report():
 
 def get_report():
     report = load_report()
+
     report_data = []
-    final_report = []
     for report_item in report:
-        report_data.append(int(input("{}: ".format(report_item))))
-    i = 0
-    for item in report:
-        x = ("*{}:* {}".format(item, report_data[i]))
-        i += 1
-        final_report.append(x)
-    super_final_report = "Buenas Noches Reporte de *Centtral Interlomas*"
-    for report in final_report:
-        super_final_report += "\n{}".format(report)
+        report_data.append(int_input("{}: ".format(report_item)))
+
+    final_report = []
+    for i, item in enumerate(report):
+        final_report.append("*{}:* {}".format(item, report_data[i]))
+
+    super_final_report = "Buenas Noches Reporte de *Centtral Interlomas*\n"
+    super_final_report += "\n".join(final_report)
+
     pyclip.copy(super_final_report)
     print("Copied to Clipboard!")
 
@@ -64,13 +61,15 @@ def get_report():
 def menu():
     while True:
         print("Please Select one of the following!")
-        print("1.Edit Report\n2.Get Report")
-        menu_selection = UEIP("Select Option: ", 0)
+        print("1. Edit Report\n2. Get Report")
+        menu_selection = int_input("Select Option: ")
         if menu_selection == 1:
             edit_report()
-        else:
+        elif menu_selection == 2:
             get_report()
             break
+        else:
+            print("Invalid selection, please try again...")
 
 # Main Code
 

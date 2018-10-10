@@ -18,33 +18,22 @@ def cls():
 
 def pause():
     """This function pauses the program until the user presses enter key"""
-    x = input("PRESS ENTER TO CONTINUE...")
+    input("PRESS ENTER TO CONTINUE...")
 
 
 def confirm():
     """This Function asks user for confirmation"""
-    confirmation = input("Do you wish to confirm? Y-N")
-    confirmation = confirmation.lower()
-    if confirmation == "y":
+    confirmation = input("Do you wish to confirm? Y-N: ")
+    if confirmation[0].lower() == "y":
         return True
-    else:
-        print("Confirmation Failed!")
-        return False
+    print("Confirmation Failed!")
+    return False
 
 
-def UEIP(x="Text for Prompt", y="0 for int, 1 for str"):
-    if y == 0:
-        while y is not 2:
-            try:
-                UserInput = int(input(x))
-                y = 2
-            except:
-                print('Input not valid, please try again...')
-    elif y == 1:
-        while y is not 2:
-            try:
-                UserInput = str(input(x))
-                y = 2
-            except:
-                print('Input not valid, please try again...')
-    return UserInput
+def int_input(prompt="Text for prompt"):
+    """This function prompts for an integer, and loops until it gets one"""
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Input not a valid integer, please try again...")
